@@ -1,6 +1,5 @@
 #include "mqtt.h"
 
-#include <tbox/base/log.h>
 #include <tbox/base/json.hpp>
 #include <tbox/util/json.h>
 
@@ -55,7 +54,6 @@ bool Mqtt::onInit(const tbox::Json &js)
   tbox::mqtt::Client::Callbacks cbs;
 
   cbs.connected = [this, recv_topic] {
-    LogInfo("connected");
     mqtt_.subscribe(recv_topic);
     parent_.onMqttConnected(); 
   };
@@ -66,10 +64,8 @@ bool Mqtt::onInit(const tbox::Json &js)
     parent_.onMqttRecv(payload_ptr, payload_len);
   };
 
-  if (!mqtt_.initialize(conf, cbs)) {
-    LogErr("init mqtt fail");
+  if (!mqtt_.initialize(conf, cbs))
     return false;
-  }
 
   return true;
 }
