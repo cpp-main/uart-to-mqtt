@@ -1,2 +1,2 @@
 *.o
-/uart_to_mqtt
+uart_to_mqtt
