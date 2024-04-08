@@ -48,6 +48,7 @@ void Uart::send(const void *data_ptr, size_t data_size) {
 
 void Uart::onUartRecv(tbox::network::Buffer &buffer) {
   parent_.onUartRecv(buffer.readableBegin(), buffer.readableSize());
+  buffer.hasReadAll();
 }
 
 }
